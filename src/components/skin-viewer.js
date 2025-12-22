@@ -1,6 +1,7 @@
 /**
  * Minecraft Skin Viewer Component
  * Renders 3D Minecraft skin using skinview3d library
+ * Includes loading state animation
  */
 
 // Skin configuration
@@ -17,14 +18,24 @@ const SKIN_CONFIG = {
  */
 export function initSkinViewer() {
   const canvas = document.getElementById('skin-canvas')
+  const container = canvas?.closest('.glass-card')
 
   if (!canvas) {
     console.warn('Skin canvas not found')
     return
   }
 
+  // Show loading state
+  let loader = null
+  if (container) {
+    container.style.position = 'relative'
+    loader = createLoader()
+    container.appendChild(loader)
+  }
+
   // Check if skinview3d library is loaded
   if (typeof skinview3d === 'undefined') {
+    removeLoader(loader)
     showSkinError('Cannot load skinview3d library')
     return
   }
@@ -52,10 +63,40 @@ export function initSkinViewer() {
       viewer.animation.speed = 1
     }
 
+    // Remove loader after skin loads
+    setTimeout(() => removeLoader(loader), 800)
+
   } catch (error) {
     console.error('Skin viewer initialization failed:', error)
+    removeLoader(loader)
     showSkinError('Error loading Minecraft skin')
   }
+}
+
+/**
+ * Create loading spinner element
+ * @returns {HTMLElement}
+ */
+function createLoader() {
+  const loader = document.createElement('div')
+  loader.className = 'skin-loader absolute inset-0 flex items-center justify-center bg-surface-dark/50 z-20'
+
+  const spinner = document.createElement('div')
+  spinner.className = 'w-10 h-10 border-3 border-primary border-t-transparent rounded-full animate-spin'
+
+  loader.appendChild(spinner)
+  return loader
+}
+
+/**
+ * Remove loader with fade out animation
+ * @param {HTMLElement|null} loader
+ */
+function removeLoader(loader) {
+  if (!loader) return
+
+  loader.style.opacity = '0'
+  setTimeout(() => loader.remove(), 300)
 }
 
 /**
@@ -79,7 +120,7 @@ function showSkinError(message) {
     title.textContent = 'Error Loading Skin'
 
     const desc = document.createElement('p')
-    desc.className = 'text-gray-light'
+    desc.className = 'text-text-secondary'
     desc.textContent = message // Safe: textContent
 
     errorDiv.appendChild(title)

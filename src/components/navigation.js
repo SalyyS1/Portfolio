@@ -16,34 +16,33 @@ export function initNavigation() {
  * Initialize mobile hamburger menu toggle
  */
 function initMobileMenu() {
-  const menuButton = document.querySelector('.mobile-menu-btn')
-  const navLinks = document.querySelector('.nav-links')
+  const menuButton = document.getElementById('mobile-menu-btn')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const hamburgerIcon = menuButton?.querySelector('.hamburger-icon')
+  const closeIcon = menuButton?.querySelector('.close-icon')
 
-  if (!menuButton || !navLinks) return
+  if (!menuButton || !mobileMenu) return
 
   menuButton.addEventListener('click', () => {
-    const isOpen = navLinks.classList.contains('flex')
+    const isOpen = !mobileMenu.classList.contains('hidden')
 
     if (isOpen) {
-      navLinks.classList.remove('flex')
-      navLinks.classList.add('hidden')
+      mobileMenu.classList.add('hidden')
+      hamburgerIcon?.classList.remove('hidden')
+      closeIcon?.classList.add('hidden')
     } else {
-      navLinks.classList.remove('hidden')
-      navLinks.classList.add('flex')
+      mobileMenu.classList.remove('hidden')
+      hamburgerIcon?.classList.add('hidden')
+      closeIcon?.classList.remove('hidden')
     }
-
-    // Toggle hamburger animation
-    menuButton.classList.toggle('active')
   })
 
   // Close menu when clicking a link
-  navLinks.querySelectorAll('a').forEach(link => {
+  mobileMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      if (window.innerWidth < 768) {
-        navLinks.classList.remove('flex')
-        navLinks.classList.add('hidden')
-        menuButton.classList.remove('active')
-      }
+      mobileMenu.classList.add('hidden')
+      hamburgerIcon?.classList.remove('hidden')
+      closeIcon?.classList.add('hidden')
     })
   })
 }
@@ -76,19 +75,29 @@ function initSmoothScroll() {
  */
 function initActiveLinks() {
   const sections = document.querySelectorAll('section[id]')
-  const navLinks = document.querySelectorAll('.nav-links a')
+  const desktopNavLinks = document.querySelectorAll('.nav-link')
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link')
 
-  if (sections.length === 0 || navLinks.length === 0) return
+  if (sections.length === 0) return
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.getAttribute('id')
 
-        navLinks.forEach(link => {
+        // Update desktop nav
+        desktopNavLinks.forEach(link => {
           link.classList.remove('text-primary')
           if (link.getAttribute('href') === `#${id}`) {
             link.classList.add('text-primary')
+          }
+        })
+
+        // Update mobile nav
+        mobileNavLinks.forEach(link => {
+          link.classList.remove('text-primary', 'bg-primary/10')
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('text-primary', 'bg-primary/10')
           }
         })
       }

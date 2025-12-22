@@ -123,12 +123,29 @@ function createProjectCard(project) { ... }
 - `fadeIn` (0.5s ease-out)
 - `slideUp` (0.5s ease-out with translateY)
 
+**Component-Specific Classes (Phase 03 - Layout Implementation):**
+- `.nav-link` - Desktop nav links with underline animation
+- `.mobile-nav-link` - Mobile menu links with hover highlight
+- `.info-item` - Hero section personal info grid items
+- `.project-card` - Bento grid project cards
+- `.line-clamp-2` - Truncate text to 2 lines
+- `.about-item` - About section experience/achievement items
+- `.skill-card` - About section skill cards with icon
+
 ## HTML Standards
 
 ### Semantic Markup
-- Sections identified by `id` attributes: `#home`, `#projects`, `#about`, `#contact`
-- Navigation uses semantic `<nav>` with `<ul>` and `<li>`
-- Button elements for interactive controls (not divs)
+
+**Page Sections (Phase 03):**
+- Navigation: `<nav class="navbar">` with desktop links and mobile hamburger menu
+- Hero: `<section id="home">` with 2-column grid (skinview3d + personal info)
+- Projects: `<section id="projects">` with bento grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-4`)
+- About: `<section id="about">` with 3-column layout (experience, skills, achievements)
+- Contact: `<section id="contact">` with 2-column social cards
+- Footer: `<footer>` with copyright text
+
+**Navigation uses semantic** `<nav>` with `<ul>` and `<li>`
+**Button elements for interactive controls** (not divs)
 
 ### Accessibility
 - `alt` attributes on all images (required)
@@ -169,7 +186,7 @@ function helper() { ... }
 
 ### Data Structure Pattern
 
-**Project Objects:**
+**Project Objects (Phase 03 - Bento Grid):**
 ```javascript
 {
   name: string,
@@ -178,9 +195,15 @@ function helper() { ... }
   description: string,
   image: string (relative path),
   demo: string | null (URL),
-  github: string | null (URL)
+  github: string | null (URL),
+  size: 'small' | 'medium' | 'large'  // NEW: Bento grid sizing
 }
 ```
+
+**Grid Size Mapping:**
+- `small`: 1 grid cell (1x1) - Default
+- `medium`: 2 columns wide (2x1) - `md:col-span-2`
+- `large`: 2x2 grid cells - `md:col-span-2 md:row-span-2`
 
 **Skin Configuration:**
 ```javascript

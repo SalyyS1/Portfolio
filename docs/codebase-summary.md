@@ -102,27 +102,39 @@ SKIN_CONFIG = {
 - Updates icon visibility (sun/moon)
 - Class toggle on documentElement
 
-## Styling System
+## Styling System (Phase 02 - Complete)
 
-### Tailwind CSS v4
-**Config:** Inline `@theme` directive in main.css
-**Custom Variables:**
-```css
---color-primary: #00ffff (cyan)
---color-dark: #1a1a1a
---color-darker: #0a0a15
---color-light: #f5f5f5
---color-gray-light: #aaaaaa
-```
+### Tailwind CSS v4 with Custom Design System
+**Config:** Centralized `@theme` block in `/src/styles/main.css` (537 lines)
 
-**Fonts:** Poppins (sans), JetBrains Mono (mono)
-**Animations:** fadeIn, slideUp (defined in @theme)
+**Design Tokens Included:**
+- **25 CSS Variables** for colors, typography, spacing, shadows, radius, animations
+- **Color Palette:** Primary cyan, 4 surface variants, 3 text colors, 2 accents
+- **Typography Scale:** 9 font sizes (xs to hero), 2 font families
+- **Spacing Grid:** 10 tokens (8-point base grid)
+- **Shadow System:** Card, glow, button variants
+- **Border Radius:** 5 scale variants (sm to full)
+- **Animations:** 3 keyframes (fadeIn, slideUp, pulseGlow)
+
+**Fonts:** Poppins (sans), JetBrains Mono (mono) - Google Fonts
+
+**Component Classes Defined:**
+- `.glass-card`, `.glass-card-hover`, `.glass-subtle` - Glassmorphism
+- `.btn`, `.btn-primary`, `.btn-ghost`, `.btn-icon` (+ sm/lg variants)
+- `.badge`, `.badge-primary`, `.tag` - Labels and tags
+- `.section-title`, `.section-subtitle` - Headings
+- `.input`, `.textarea` - Form elements
+- `.text-glow`, `.text-gradient`, `.link`, `.divider` - Utilities
+- `.skip-link` - Accessibility
 
 ### Theme System
 **CSS Variables (Light/Dark modes):**
 - `--bg-primary`, `--bg-secondary`
 - `--text-primary`, `--text-secondary`
 - `--card-shadow`, `--hover-shadow`, `--border-color`
+
+**Dark Mode (Default):** Applied to `.dark` class on html element
+**Light Mode:** Fallback in `:root` selector
 
 ## Build Configuration (Vite)
 
@@ -212,7 +224,87 @@ npm run preview
 - **Package Version:** 1.0.0
 - **Node Type:** ES Modules (type: "module")
 - **Created:** 2025-12-22
-- **Last Updated:** Phase 01 - Project Setup & Architecture
+- **Last Updated:** Phase 03 - Layout Implementation (2025-12-22)
+
+## Phase 03 - Layout Implementation (COMPLETE)
+
+**Updated:** 2025-12-22
+
+### New CSS Classes (Added in Phase 03)
+
+**Navigation:**
+- `.nav-link` - Desktop navigation links with underline animation on hover
+- `.mobile-nav-link` - Mobile menu links with highlight on hover
+
+**Hero Section:**
+- `.info-item` - Personal info card grid items (name, age, role, etc.)
+
+**Projects Section:**
+- `.project-card` - Bento grid project cards with image overlay and gradient
+- `.line-clamp-2` - Limit description to 2 lines with ellipsis
+
+**About Section:**
+- `.about-item` - Experience/achievement list items with icon
+- `.skill-card` - Skill cards with icon, title, and description
+
+**Component Updates:**
+- **projects.js:** Added `size` property to projects (large, medium, small) for bento grid
+  - Large: `md:col-span-2 md:row-span-2` (2x2 grid cells)
+  - Medium: `md:col-span-2` (2x1 grid cells)
+  - Small: default (1x1 grid cells)
+- **navigation.js:** Implemented mobile menu toggle, smooth scroll, active link detection via Intersection Observer
+
+### Layout Structure (Phase 03)
+
+```
+<html class="dark">
+  <body class="bg-surface-darker">
+    <nav class="navbar glass-subtle">...</nav>
+    <main>
+      <section id="home" class="hero-section">
+        - 2-column responsive grid (col-1: skinview3d, col-2: personal info)
+        - Glass cards with hover animations
+      </section>
+      <section id="projects" class="section">
+        - Bento grid: grid-cols-1 md:grid-cols-2 lg:grid-cols-4
+        - auto-rows-[280px] for consistent height
+        - Asymmetric card sizes (1x1, 2x1, 2x2)
+      </section>
+      <section id="about" class="section">
+        - 3-column grid (lg:grid-cols-3)
+        - Experience, Skills, Achievements cards
+      </section>
+      <section id="contact" class="section">
+        - 2-column grid (sm:grid-cols-2)
+        - Social link cards (Discord, GitHub)
+      </section>
+    </main>
+    <footer class="glass-subtle">...</footer>
+  </body>
+</html>
+```
+
+### Responsive Breakpoints (Phase 03)
+
+- **Mobile (320px):** Single column layouts, hamburger menu, stacked sections
+- **Tablet (md: 768px):** 2-column grids, desktop nav appears, bento begins
+- **Desktop (lg: 1024px):** 3-4 column layouts, full bento grid (4 columns)
+- **Extra Large (xl: 1280px):** Max-width container (max-w-7xl)
+
+### HTML Structure Changes
+
+**index.html (307 lines total):**
+1. Fixed navbar with logo, desktop nav, mobile hamburger, theme toggle
+2. Hero section with 2-col grid (skin viewer + personal info)
+3. Projects grid container (#projectsGrid)
+4. About section with 3-col layout
+5. Contact section with social cards
+6. Footer with copyright
+
+**Metrics:**
+- Total CSS: 31.88 kB gzipped (main.css + legacy style.css combined)
+- Total JS: 8.39 kB gzipped (components + theme toggle)
+- Zero layout shift (CLS optimized)
 
 ## Known Limitations / Future Considerations
 
@@ -220,4 +312,5 @@ npm run preview
 2. **Skin UUID:** Hardcoded, could make configurable
 3. **Internationalization:** Single language (English)
 4. **Dark Mode Default:** CSS variables support light mode but UI optimized for dark
-5. **No Form Validation:** Contact section likely needs backend integration
+5. **No Form Validation:** Contact section has static links only (no form backend)
+6. **Legacy CSS:** Two style files exist (css/style.css + src/styles/main.css) - can consolidate in future
