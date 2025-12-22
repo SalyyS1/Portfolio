@@ -1,6 +1,6 @@
 /**
  * Block Breaker Mini Game
- * Enhanced with difficulty levels, power-ups, combos, and leaderboard
+ * Enhanced with difficulty levels, power-ups, and combos
  */
 
 // Game configuration
@@ -37,8 +37,7 @@ const gameState = {
   isRunning: false,
   timer: null,
   difficulty: 'medium',
-  username: '',
-  leaderboard: []
+  username: ''
 }
 
 /**
@@ -54,7 +53,6 @@ export function initBlockBreaker() {
 
   // Render game UI
   renderGameUI(container)
-  loadLeaderboard()
   createBlocks()
 }
 
@@ -103,20 +101,6 @@ function renderGameUI(container) {
 
       <!-- Start Button -->
       <button class="btn btn-primary minigame-btn" id="start-game">Start Game</button>
-
-      <!-- Leaderboard Toggle -->
-      <button class="btn btn-ghost leaderboard-toggle" id="leaderboard-toggle">
-        <span>🏆</span> Leaderboard
-      </button>
-
-      <!-- Leaderboard Panel -->
-      <div class="leaderboard-panel hidden" id="leaderboard-panel">
-        <h4>🏆 Top Players</h4>
-        <div class="leaderboard-list" id="leaderboard-list">
-          <p class="loading-text">Loading...</p>
-        </div>
-        <p class="leaderboard-note">Want to be featured? DM your score on Discord!</p>
-      </div>
     </div>
 
     <!-- Username Modal -->
@@ -148,9 +132,6 @@ function attachEventListeners() {
 
   // Start button
   document.getElementById('start-game')?.addEventListener('click', handleStartClick)
-
-  // Leaderboard toggle
-  document.getElementById('leaderboard-toggle')?.addEventListener('click', toggleLeaderboard)
 
   // Username modal
   document.getElementById('save-username')?.addEventListener('click', saveUsername)
@@ -491,60 +472,6 @@ function showGameOverMessage(isNewBest) {
 
   grid.appendChild(overlay)
   setTimeout(() => overlay.remove(), 3000)
-}
-
-/**
- * Toggle leaderboard panel
- */
-function toggleLeaderboard() {
-  const panel = document.getElementById('leaderboard-panel')
-  panel?.classList.toggle('hidden')
-}
-
-/**
- * Load leaderboard from JSON
- */
-async function loadLeaderboard() {
-  try {
-    const response = await fetch('./data/leaderboard.json')
-    if (response.ok) {
-      gameState.leaderboard = await response.json()
-      renderLeaderboard()
-    }
-  } catch (e) {
-    // Use fallback data
-    gameState.leaderboard = [
-      { name: 'SalyVn', score: 150, difficulty: 'hard' },
-      { name: 'Player1', score: 120, difficulty: 'medium' },
-      { name: 'Gamer', score: 100, difficulty: 'easy' }
-    ]
-    renderLeaderboard()
-  }
-}
-
-/**
- * Render leaderboard list
- */
-function renderLeaderboard() {
-  const list = document.getElementById('leaderboard-list')
-  if (!list) return
-
-  if (gameState.leaderboard.length === 0) {
-    list.innerHTML = '<p class="no-scores">No scores yet. Be the first!</p>'
-    return
-  }
-
-  list.innerHTML = gameState.leaderboard
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 10)
-    .map((entry, i) => `
-      <div class="leaderboard-entry ${i < 3 ? 'top-' + (i + 1) : ''}">
-        <span class="rank">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</span>
-        <span class="name">${entry.name}</span>
-        <span class="score">${entry.score}</span>
-        <span class="diff">${entry.difficulty}</span>
-      </div>
-    `).join('')
 }
 
 // Auto-initialize when DOM is ready

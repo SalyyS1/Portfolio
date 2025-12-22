@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Blog | SalyVn</title>
   <meta name="description" content="Blog posts about web development, Minecraft plugins, and creative coding by SalyVn.">
-  <meta name="author" content="Trần Đ.Nhân">
+  <meta name="author" content="Trần Đức Nhân">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%2300d4ff' width='100' height='100' rx='20'/></svg>">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,16 +16,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
-    /* Reset & Base */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg-dark: #0a0a0f;
       --bg-card: #12121a;
-      --bg-card-hover: #1a1a25;
       --bg-elevated: #16161f;
       --accent: #00d4ff;
-      --accent-glow: rgba(0, 212, 255, 0.4);
       --accent-secondary: #00ff88;
       --text: #f5f5f7;
       --text-secondary: #a0a0b0;
@@ -46,6 +43,8 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     ::selection {
@@ -59,7 +58,6 @@
       padding: 0 24px;
     }
 
-    /* Navigation */
     nav {
       position: fixed;
       top: 0;
@@ -102,7 +100,6 @@
     .nav-links a:hover { color: var(--accent); }
     .nav-links a.active { color: var(--accent); font-weight: 500; }
 
-    /* Header */
     .page-header {
       padding: 140px 0 60px;
       text-align: center;
@@ -122,177 +119,53 @@
       font-size: 1.1rem;
     }
 
-    /* Blog Grid */
-    .blog-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      padding-bottom: 80px;
-    }
-
-    /* Post Card */
-    .post-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
-      transition: var(--transition);
-      cursor: pointer;
-    }
-
-    .post-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-card);
-    }
-
-    .post-meta {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 12px;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .post-date {
+    .welcome-section {
+      flex: 1;
       display: flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      padding: 40px 24px;
     }
 
-    .post-title {
-      font-size: 1.4rem;
-      margin-bottom: 12px;
-      color: var(--text);
-      transition: var(--transition);
-    }
-
-    .post-card:hover .post-title {
-      color: var(--accent);
-    }
-
-    .post-excerpt {
-      color: var(--text-secondary);
-      margin-bottom: 16px;
-      line-height: 1.7;
-    }
-
-    .post-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      padding: 4px 12px;
-      background: var(--bg-elevated);
-      border-radius: 999px;
-      font-size: 0.75rem;
-      color: var(--accent);
-      text-transform: lowercase;
-    }
-
-    /* Post Detail Modal */
-    .post-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.9);
-      z-index: 200;
-      display: none;
-      overflow-y: auto;
-    }
-
-    .post-modal.active {
-      display: block;
-    }
-
-    .post-modal-content {
-      max-width: 800px;
-      margin: 80px auto;
-      padding: 40px;
+    .welcome-card {
       background: var(--bg-card);
-      border-radius: var(--radius);
       border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
     }
 
-    .post-modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 24px;
+    .welcome-card h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      color: var(--text);
     }
 
-    .close-modal {
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 8px;
-      transition: var(--transition);
-    }
-
-    .close-modal:hover {
-      color: var(--accent);
-    }
-
-    .post-content {
+    .welcome-card p {
       color: var(--text-secondary);
+      font-size: 1.1rem;
       line-height: 1.8;
     }
 
-    .post-content p { margin-bottom: 16px; }
-    .post-content ul, .post-content ol { margin-bottom: 16px; padding-left: 24px; }
-    .post-content li { margin-bottom: 8px; }
-    .post-content strong { color: var(--text); }
-
-    /* Media Embeds */
-    .post-media {
-      margin: 24px 0;
+    .welcome-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .youtube-embed {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: var(--radius-sm);
+    .welcome-icon svg {
+      width: 40px;
+      height: 40px;
+      color: var(--bg-dark);
     }
 
-    .youtube-embed iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .audio-player {
-      width: 100%;
-      margin: 16px 0;
-    }
-
-    .image-embed {
-      width: 100%;
-      border-radius: var(--radius-sm);
-      margin: 16px 0;
-    }
-
-    /* Giscus Comments */
-    .comments-section {
-      margin-top: 40px;
-      padding-top: 40px;
-      border-top: 1px solid var(--border);
-    }
-
-    .comments-section h3 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-      color: var(--accent);
-    }
-
-    /* Footer */
     footer {
       padding: 40px 0;
       text-align: center;
@@ -309,43 +182,16 @@
       text-decoration: none;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
       .nav-links { display: none; }
       .page-header { padding: 120px 0 40px; }
       .page-header h1 { font-size: 2rem; }
-      .post-card { padding: 24px; }
-      .post-title { font-size: 1.2rem; }
-      .post-modal-content { margin: 60px 16px; padding: 24px; }
-    }
-
-    /* Loading */
-    .loading {
-      text-align: center;
-      padding: 60px;
-      color: var(--text-muted);
-    }
-
-    .loading::after {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--accent);
-      border-top-color: transparent;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin-left: 12px;
-      vertical-align: middle;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+      .welcome-card { padding: 32px; }
+      .welcome-card h2 { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <nav>
     <div class="container">
       <a href="index.html" class="logo">SalyVn</a>
@@ -359,240 +205,32 @@
     </div>
   </nav>
 
-  <!-- Header -->
   <header class="page-header">
     <div class="container">
-      <h1>Blog</h1>
+      <h1>Welcome to My Blog</h1>
       <p>Thoughts on development, Minecraft, and creative coding</p>
     </div>
   </header>
 
-  <!-- Blog Posts -->
-  <main class="container">
-    <div class="blog-grid" id="blog-grid">
-      <div class="loading">Loading posts</div>
+  <main class="welcome-section">
+    <div class="welcome-card">
+      <div class="welcome-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 19l7-7 3 3-7 7-3-3z"/>
+          <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/>
+          <path d="M2 2l7.586 7.586"/>
+          <circle cx="11" cy="11" r="2"/>
+        </svg>
+      </div>
+      <h2>Coming Soon</h2>
+      <p>I'm working on exciting content about web development, Minecraft plugins, and creative coding. Stay tuned for updates!</p>
     </div>
   </main>
 
-  <!-- Post Modal -->
-  <div class="post-modal" id="post-modal">
-    <div class="post-modal-content">
-      <div class="post-modal-header">
-        <div>
-          <div class="post-meta" id="modal-meta"></div>
-          <h2 class="post-title" id="modal-title"></h2>
-        </div>
-        <button class="close-modal" id="close-modal">&times;</button>
-      </div>
-      <div class="post-content" id="modal-content"></div>
-      <div class="post-media" id="modal-media"></div>
-      <div class="post-tags" id="modal-tags"></div>
-
-      <!-- Giscus Comments -->
-      <div class="comments-section">
-        <h3>💬 Comments</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
-          Comments powered by GitHub Discussions. Sign in with GitHub to comment.
-        </p>
-        <div id="giscus-container"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
   <footer>
     <div class="container">
       <p>&copy; 2025 <a href="index.html">SalyVn</a>. All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
-    let posts = [];
-    let currentPost = null;
-
-    // Load posts
-    async function loadPosts() {
-      try {
-        const response = await fetch('./data/posts.json');
-        if (response.ok) {
-          posts = await response.json();
-          renderPosts();
-        } else {
-          showError();
-        }
-      } catch (e) {
-        console.error('Error loading posts:', e);
-        showError();
-      }
-    }
-
-    // Render post list
-    function renderPosts() {
-      const grid = document.getElementById('blog-grid');
-      if (!grid) return;
-
-      if (posts.length === 0) {
-        grid.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No posts yet. Check back soon!</p>';
-        return;
-      }
-
-      grid.innerHTML = posts.map(post => `
-        <article class="post-card" data-id="${post.id}">
-          <div class="post-meta">
-            <span class="post-date">📅 ${formatDate(post.date)}</span>
-          </div>
-          <h2 class="post-title">${post.title}</h2>
-          <p class="post-excerpt">${post.excerpt}</p>
-          <div class="post-tags">
-            ${post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('')}
-          </div>
-        </article>
-      `).join('');
-
-      // Add click handlers
-      document.querySelectorAll('.post-card').forEach(card => {
-        card.addEventListener('click', () => openPost(card.dataset.id));
-      });
-    }
-
-    // Format date
-    function formatDate(dateStr) {
-      const date = new Date(dateStr);
-      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    }
-
-    // Open post modal
-    function openPost(id) {
-      const post = posts.find(p => p.id === id);
-      if (!post) return;
-
-      currentPost = post;
-
-      document.getElementById('modal-meta').innerHTML = `<span class="post-date">📅 ${formatDate(post.date)}</span>`;
-      document.getElementById('modal-title').textContent = post.title;
-      document.getElementById('modal-content').innerHTML = post.content;
-      document.getElementById('modal-tags').innerHTML = post.tags.map(tag => `<span class="tag">#${tag}</span>`).join('');
-
-      // Render media
-      const mediaContainer = document.getElementById('modal-media');
-      mediaContainer.innerHTML = '';
-      if (post.media && post.media.length > 0) {
-        post.media.forEach(media => {
-          if (media.type === 'youtube') {
-            const videoId = extractYouTubeId(media.url);
-            if (videoId) {
-              mediaContainer.innerHTML += `
-                <div class="youtube-embed">
-                  <iframe src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe>
-                </div>
-              `;
-            }
-          } else if (media.type === 'audio') {
-            mediaContainer.innerHTML += `
-              <audio class="audio-player" controls>
-                <source src="${media.url}" type="audio/mpeg">
-              </audio>
-            `;
-          } else if (media.type === 'image') {
-            mediaContainer.innerHTML += `<img class="image-embed" src="${media.url}" alt="${media.title || ''}">`;
-          }
-        });
-      }
-
-      // Load Giscus comments
-      loadGiscus(post.id);
-
-      document.getElementById('post-modal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-
-      // Update URL
-      history.pushState({ postId: id }, '', `?post=${id}`);
-    }
-
-    // Extract YouTube video ID
-    function extractYouTubeId(url) {
-      const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
-      return match ? match[1] : null;
-    }
-
-    // Load Giscus comments
-    function loadGiscus(postId) {
-      const container = document.getElementById('giscus-container');
-      container.innerHTML = '';
-
-      // Note: User needs to configure Giscus with their repo
-      // This is a placeholder that shows instructions
-      container.innerHTML = `
-        <div style="background: var(--bg-elevated); padding: 24px; border-radius: var(--radius-sm); text-align: center;">
-          <p style="color: var(--text-secondary); margin-bottom: 12px;">To enable comments:</p>
-          <ol style="text-align: left; color: var(--text-muted); font-size: 0.85rem; padding-left: 20px;">
-            <li>Enable GitHub Discussions on your repository</li>
-            <li>Visit <a href="https://giscus.app" target="_blank" style="color: var(--accent);">giscus.app</a> to configure</li>
-            <li>Replace this placeholder with the generated script</li>
-          </ol>
-        </div>
-      `;
-
-      // Uncomment and configure after setting up Giscus:
-      /*
-      const script = document.createElement('script');
-      script.src = 'https://giscus.app/client.js';
-      script.dataset.repo = 'YOUR_USERNAME/YOUR_REPO';
-      script.dataset.repoId = 'YOUR_REPO_ID';
-      script.dataset.category = 'Announcements';
-      script.dataset.categoryId = 'YOUR_CATEGORY_ID';
-      script.dataset.mapping = 'specific';
-      script.dataset.term = postId;
-      script.dataset.strict = '0';
-      script.dataset.reactionsEnabled = '1';
-      script.dataset.emitMetadata = '0';
-      script.dataset.inputPosition = 'top';
-      script.dataset.theme = 'dark';
-      script.dataset.lang = 'en';
-      script.crossOrigin = 'anonymous';
-      script.async = true;
-      container.appendChild(script);
-      */
-    }
-
-    // Close modal
-    function closeModal() {
-      document.getElementById('post-modal').classList.remove('active');
-      document.body.style.overflow = '';
-      currentPost = null;
-      history.pushState({}, '', 'blog.html');
-    }
-
-    // Show error
-    function showError() {
-      const grid = document.getElementById('blog-grid');
-      if (grid) {
-        grid.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Failed to load posts. Please try again later.</p>';
-      }
-    }
-
-    // Event listeners
-    document.getElementById('close-modal')?.addEventListener('click', closeModal);
-    document.getElementById('post-modal')?.addEventListener('click', (e) => {
-      if (e.target.id === 'post-modal') closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // Handle URL params
-    function handleUrlParams() {
-      const params = new URLSearchParams(window.location.search);
-      const postId = params.get('post');
-      if (postId && posts.length > 0) {
-        openPost(postId);
-      }
-    }
-
-    // Init
-    loadPosts().then(() => {
-      handleUrlParams();
-    });
-  </script>
 </body>
 </html>
