@@ -3,108 +3,290 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SalyVn - Full Stack Developer</title>
-  <meta name="description" content="Trần Đ.Nhân (SalyVn) - Full Stack Developer specializing in Minecraft development, web applications, and plugin creation.">
+  <title>SalyVn | Full Stack Developer & Minecraft Specialist</title>
+  <meta name="description" content="Trần Đ.Nhân (SalyVn) - Full Stack Developer specializing in Minecraft plugin development, web applications, and creative digital solutions. Founder of StellaStudio.">
+  <meta name="keywords" content="SalyVn, Full Stack Developer, Minecraft Developer, Plugin Development, Web Development, StellaStudio">
+  <meta name="author" content="Trần Đ.Nhân">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SalyVn | Full Stack Developer & Minecraft Specialist">
+  <meta property="og:description" content="Full Stack Developer specializing in Minecraft plugin development, web applications, and creative digital solutions.">
+  <meta property="og:url" content="https://salyys1.github.io">
+  <meta property="og:site_name" content="SalyVn Portfolio">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SalyVn | Full Stack Developer">
+  <meta name="twitter:description" content="Full Stack Developer & Minecraft Specialist">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Skin Viewer -->
-  <script src="https://unpkg.com/skinview3d@4.1.0/dist/skinview3d.min.js"></script>
+  <!-- Skin Viewer - Load without defer for proper initialization -->
+  <script src="https://unpkg.com/skinview3d@3.0.0/bundles/skinview3d.bundle.js"></script>
 
   <style>
+    /* Reset & Base */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg-dark: #0f0f13;
-      --bg-card: #1a1a22;
-      --bg-hover: #252530;
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card-hover: #1a1a25;
+      --bg-elevated: #16161f;
       --accent: #00d4ff;
-      --accent-dim: rgba(0, 212, 255, 0.15);
-      --text: #f0f0f5;
-      --text-dim: #9090a0;
-      --border: rgba(255,255,255,0.08);
-      --radius: 12px;
+      --accent-glow: rgba(0, 212, 255, 0.4);
+      --accent-dim: rgba(0, 212, 255, 0.12);
+      --accent-secondary: #00ff88;
+      --text: #f5f5f7;
+      --text-secondary: #a0a0b0;
+      --text-muted: #6a6a7a;
+      --border: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(0, 212, 255, 0.3);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 30px var(--accent-glow);
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-dark);
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Layout */
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    section { padding: 80px 0; }
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-dark);
+    }
 
-    /* Nav */
+    /* Skip Link for Accessibility */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      background: var(--accent);
+      color: var(--bg-dark);
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      z-index: 1000;
+      transition: top 0.3s;
+    }
+    .skip-link:focus { top: 20px; }
+
+    /* Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section {
+      padding: 100px 0;
+      position: relative;
+    }
+
+    /* Navigation */
     nav {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       z-index: 100;
-      background: rgba(15, 15, 19, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 10, 15, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    nav.scrolled {
+      background: rgba(10, 10, 15, 0.95);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
     }
 
     nav .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 64px;
+      height: 72px;
     }
 
     .logo {
       font-weight: 700;
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       color: var(--accent);
       text-decoration: none;
+      letter-spacing: -0.02em;
+      transition: var(--transition);
+    }
+
+    .logo:hover {
+      text-shadow: var(--shadow-glow);
     }
 
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 40px;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--text-dim);
+      color: var(--text-secondary);
       text-decoration: none;
       font-size: 0.9rem;
       font-weight: 500;
-      transition: color 0.2s;
+      transition: var(--transition);
+      position: relative;
     }
 
-    .nav-links a:hover { color: var(--accent); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
 
-    /* Hero */
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-menu-btn span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: var(--transition);
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      background: rgba(10, 10, 15, 0.98);
+      backdrop-filter: blur(20px);
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mobile-menu.active {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 16px 0;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .mobile-menu a:hover {
+      color: var(--accent);
+      padding-left: 12px;
+    }
+
+    /* Hero Section */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding-top: 64px;
+      padding-top: 72px;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(0, 212, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
     }
 
     .hero-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 80px;
       align-items: center;
     }
 
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(0, 212, 255, 0.2);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .hero-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
     .hero-content h1 {
-      font-size: 3rem;
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 700;
+      line-height: 1.1;
       margin-bottom: 8px;
-      background: linear-gradient(135deg, var(--text), var(--accent));
+      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -112,34 +294,61 @@
 
     .hero-content .subtitle {
       font-size: 1.25rem;
-      color: var(--text-dim);
-      margin-bottom: 24px;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 500;
     }
 
-    .hero-content p { color: var(--text-dim); margin-bottom: 32px; }
+    .hero-content .description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 40px;
+      max-width: 500px;
+      line-height: 1.7;
+    }
 
     .info-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
     }
 
     .info-item {
       background: var(--bg-card);
-      padding: 16px;
+      padding: 20px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
+      transition: var(--transition);
     }
 
-    .info-item label { display: block; font-size: 0.75rem; color: var(--text-dim); margin-bottom: 4px; }
-    .info-item span { font-weight: 600; }
+    .info-item:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
 
-    .social-links { display: flex; gap: 12px; }
+    .info-item label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+
+    .info-item span {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+    }
 
     .social-links a {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -148,15 +357,23 @@
       color: var(--text);
       text-decoration: none;
       border: 1px solid var(--border);
-      transition: all 0.2s;
+      transition: var(--transition);
     }
 
     .social-links a:hover {
       background: var(--accent);
       color: var(--bg-dark);
       border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px var(--accent-glow);
     }
 
+    .social-links a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    /* Skin Viewer */
     .skin-container {
       display: flex;
       justify-content: center;
@@ -167,48 +384,122 @@
       background: var(--bg-card);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      padding: 24px;
+      padding: 32px;
       position: relative;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
     }
 
-    #skin-canvas { border-radius: 8px; }
+    .skin-wrapper:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .skin-loader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      z-index: 10;
+    }
+
+    .skin-loader.hidden {
+      display: none;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    #skin-canvas {
+      border-radius: var(--radius-sm);
+      display: block;
+    }
 
     /* Section Headers */
     .section-header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 60px;
     }
 
     .section-header h2 {
-      font-size: 2rem;
+      font-size: clamp(2rem, 4vw, 2.5rem);
       font-weight: 700;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      position: relative;
+      display: inline-block;
     }
 
-    .section-header p { color: var(--text-dim); }
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      border-radius: 2px;
+    }
 
-    /* Skills */
+    .section-header p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-top: 20px;
+    }
+
+    /* Skills Section */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 24px;
     }
 
     .skill-card {
       background: var(--bg-card);
-      padding: 24px;
+      padding: 32px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .skill-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
     }
 
     .skill-card h3 {
-      font-size: 1rem;
-      margin-bottom: 16px;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
       color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-card h3::before {
+      content: '';
+      width: 4px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 2px;
     }
 
     .skill-item {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .skill-item:last-child { margin-bottom: 0; }
@@ -216,28 +507,39 @@
     .skill-header {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 0.875rem;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+    }
+
+    .skill-header span:last-child {
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
     }
 
     .skill-bar {
-      height: 6px;
-      background: var(--bg-hover);
-      border-radius: 3px;
+      height: 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
       overflow: hidden;
     }
 
     .skill-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), #00ff88);
-      border-radius: 3px;
-      transition: width 1s ease;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      border-radius: 4px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* Projects */
+    .skill-fill.animate {
+      width: var(--skill-width);
+    }
+
+    /* Projects Section */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
       gap: 24px;
     }
 
@@ -246,67 +548,120 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
       overflow: hidden;
-      transition: transform 0.2s, border-color 0.2s;
+      transition: var(--transition);
     }
 
     .project-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent);
+      transform: translateY(-8px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card);
     }
 
     .project-img {
-      height: 180px;
-      background: var(--bg-hover);
+      height: 200px;
+      background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
-      color: var(--accent);
+      font-size: 4rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .project-content { padding: 20px; }
+    .project-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover .project-img img {
+      transform: scale(1.05);
+    }
+
+    .project-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, var(--bg-card));
+      pointer-events: none;
+    }
+
+    .project-content {
+      padding: 24px;
+    }
+
+    .project-type {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 100px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
 
     .project-content h3 {
-      font-size: 1.125rem;
+      font-size: 1.2rem;
       margin-bottom: 8px;
+      font-weight: 600;
     }
 
     .project-content p {
-      font-size: 0.875rem;
-      color: var(--text-dim);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
       margin-bottom: 16px;
+      line-height: 1.6;
     }
 
     .project-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .tag {
       font-size: 0.75rem;
-      padding: 4px 10px;
-      background: var(--accent-dim);
-      color: var(--accent);
-      border-radius: 4px;
+      padding: 6px 12px;
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border-radius: 6px;
       font-family: 'JetBrains Mono', monospace;
+      transition: var(--transition);
     }
 
-    .project-links { display: flex; gap: 12px; }
+    .tag:hover {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
 
+    .project-links {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 10px 18px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      border-radius: 8px;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
       text-decoration: none;
-      transition: all 0.2s;
+      transition: var(--transition);
       border: none;
       cursor: pointer;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .btn-primary {
@@ -314,7 +669,11 @@
       color: var(--bg-dark);
     }
 
-    .btn-primary:hover { filter: brightness(1.1); }
+    .btn-primary:hover {
+      background: #00e5ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px var(--accent-glow);
+    }
 
     .btn-outline {
       background: transparent;
@@ -323,11 +682,464 @@
     }
 
     .btn-outline:hover {
-      background: var(--bg-hover);
-      border-color: var(--text-dim);
+      background: var(--bg-elevated);
+      border-color: var(--text-secondary);
     }
 
-    /* About */
+    /* Minecraft Section */
+    .minecraft-section {
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(0, 255, 136, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(0, 212, 255, 0.06) 0%, transparent 50%);
+    }
+
+    .minecraft-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .minecraft-card {
+      background: var(--bg-card);
+      padding: 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .minecraft-card:hover {
+      border-color: var(--accent-secondary);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0, 255, 136, 0.15);
+    }
+
+    .minecraft-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, var(--accent-secondary), var(--accent));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .minecraft-icon svg {
+      width: 32px;
+      height: 32px;
+      color: var(--bg-dark);
+    }
+
+    .minecraft-card:hover .minecraft-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .minecraft-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .minecraft-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .minecraft-stats {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .minecraft-stats li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .minecraft-stats strong {
+      display: block;
+      font-size: 1.4rem;
+      color: var(--accent-secondary);
+      margin-bottom: 4px;
+    }
+
+    /* Minigame */
+    .minigame-container {
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      text-align: center;
+      max-width: 550px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .minigame-title {
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      color: var(--accent-secondary);
+    }
+
+    .minigame-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+    }
+
+    .minigame-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Difficulty Selector */
+    .difficulty-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .difficulty-btn {
+      padding: 8px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .difficulty-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .difficulty-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-dark);
+      font-weight: 600;
+    }
+
+    /* Stats Display */
+    .minigame-stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .combo-display.active {
+      color: var(--accent-secondary);
+      animation: pulse 0.3s ease;
+    }
+
+    /* Power-up Indicator */
+    .powerup-indicator {
+      min-height: 24px;
+    }
+
+    .double-active {
+      background: linear-gradient(90deg, #ffaa00, #ff6600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      animation: pulseGlow 1s ease-in-out infinite;
+    }
+
+    /* Game Grid */
+    .minigame-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      padding: 16px;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-sm);
+      min-height: 280px;
+      position: relative;
+    }
+
+    .minigame-block {
+      width: 48px;
+      height: 48px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.15s ease, opacity 0.2s ease;
+      position: relative;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .minigame-block:hover {
+      transform: scale(1.1);
+    }
+
+    .minigame-block.broken {
+      opacity: 0;
+      transform: scale(0);
+      pointer-events: none;
+    }
+
+    .minigame-block.dirt { background: linear-gradient(135deg, #8B5A2B, #6B4423); }
+    .minigame-block.stone { background: linear-gradient(135deg, #808080, #5a5a5a); }
+    .minigame-block.grass { background: linear-gradient(180deg, #4a7c3a 30%, #8B5A2B 30%); }
+    .minigame-block.diamond { background: linear-gradient(135deg, #00d4ff, #00a8cc); box-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
+    .minigame-block.gold { background: linear-gradient(135deg, #ffd700, #cc9900); box-shadow: 0 0 10px rgba(255, 215, 0, 0.4); }
+
+    .minigame-block.powerup {
+      animation: powerupPulse 1s ease-in-out infinite;
+    }
+
+    .powerup-icon {
+      font-size: 1.5rem;
+    }
+
+    @keyframes powerupPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    /* Score Popup */
+    .score-popup {
+      position: absolute;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent);
+      pointer-events: none;
+      animation: scoreFloat 0.6s ease-out forwards;
+      z-index: 10;
+    }
+
+    .score-popup.combo {
+      color: var(--accent-secondary);
+      font-size: 1.1rem;
+    }
+
+    @keyframes scoreFloat {
+      0% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-30px); }
+    }
+
+    /* Power-up Popup */
+    .powerup-popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-shadow: 0 0 20px currentColor;
+      animation: powerupNotify 1s ease-out forwards;
+      z-index: 20;
+    }
+
+    @keyframes powerupNotify {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+      20% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Game Over Overlay */
+    .game-over-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      animation: fadeIn 0.3s ease;
+      z-index: 30;
+    }
+
+    .game-over-content {
+      text-align: center;
+    }
+
+    .game-over-content h4 {
+      font-size: 1.5rem;
+      color: var(--accent-secondary);
+      margin-bottom: 12px;
+    }
+
+    .final-score {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .player-name {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .share-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* Leaderboard */
+    .leaderboard-toggle {
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .leaderboard-panel {
+      width: 100%;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-top: 8px;
+    }
+
+    .leaderboard-panel.hidden {
+      display: none;
+    }
+
+    .leaderboard-panel h4 {
+      font-size: 1rem;
+      color: var(--accent-secondary);
+      margin-bottom: 12px;
+    }
+
+    .leaderboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .leaderboard-entry {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      background: var(--bg-card);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+    }
+
+    .leaderboard-entry.top-1 { border-left: 3px solid gold; }
+    .leaderboard-entry.top-2 { border-left: 3px solid silver; }
+    .leaderboard-entry.top-3 { border-left: 3px solid #cd7f32; }
+
+    .leaderboard-entry .rank { width: 24px; }
+    .leaderboard-entry .name { flex: 1; text-align: left; color: var(--text); }
+    .leaderboard-entry .score { font-weight: 600; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+    .leaderboard-entry .diff { font-size: 0.75rem; color: var(--text-muted); text-transform: capitalize; }
+
+    .leaderboard-note {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+
+    /* Username Modal */
+    .username-modal {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius);
+      z-index: 50;
+    }
+
+    .username-modal.hidden {
+      display: none;
+    }
+
+    .modal-content {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .modal-content h4 {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      font-size: 1rem;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .modal-content input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .minigame-btn {
+      background: linear-gradient(135deg, var(--accent-secondary), var(--accent));
+    }
+
+    .minigame-btn:hover {
+      box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+    }
+
+    .minigame-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    /* About Section */
     .about-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -336,15 +1148,29 @@
 
     .about-card {
       background: var(--bg-card);
-      padding: 24px;
+      padding: 32px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .about-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
     }
 
     .about-card h3 {
-      font-size: 1.125rem;
-      margin-bottom: 16px;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
       color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .about-card h3 svg {
+      width: 24px;
+      height: 24px;
     }
 
     .about-card ul {
@@ -352,13 +1178,19 @@
     }
 
     .about-card li {
-      padding: 12px 0;
+      padding: 14px 0;
       border-bottom: 1px solid var(--border);
-      font-size: 0.9rem;
-      color: var(--text-dim);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
       display: flex;
       align-items: flex-start;
       gap: 12px;
+      transition: var(--transition);
+    }
+
+    .about-card li:hover {
+      color: var(--text);
+      padding-left: 8px;
     }
 
     .about-card li:last-child { border-bottom: none; }
@@ -367,364 +1199,1334 @@
       content: '→';
       color: var(--accent);
       flex-shrink: 0;
+      font-weight: bold;
     }
 
-    /* Contact */
+    /* Contact Section */
     .contact-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 24px;
-      max-width: 600px;
+      max-width: 700px;
       margin: 0 auto;
     }
 
     .contact-card {
       background: var(--bg-card);
-      padding: 32px;
+      padding: 40px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       text-align: center;
       text-decoration: none;
       color: var(--text);
-      transition: all 0.2s;
+      transition: var(--transition);
     }
 
     .contact-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .contact-card:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .contact-card svg {
-      width: 48px;
-      height: 48px;
-      margin-bottom: 16px;
+      width: 56px;
+      height: 56px;
+      margin-bottom: 20px;
       color: var(--accent);
+      transition: var(--transition);
     }
 
-    .contact-card h3 { font-size: 1.125rem; margin-bottom: 4px; }
-    .contact-card p { font-size: 0.875rem; color: var(--text-dim); }
+    .contact-card:hover svg {
+      transform: scale(1.1);
+    }
+
+    .contact-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .contact-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
 
     /* Footer */
     footer {
-      padding: 24px 0;
+      padding: 40px 0;
       border-top: 1px solid var(--border);
       text-align: center;
-      color: var(--text-dim);
-      font-size: 0.875rem;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    footer a:hover {
+      text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* Scroll to Top */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      background: var(--accent);
+      color: var(--bg-dark);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px var(--accent-glow);
     }
 
     /* Responsive */
-    @media (max-width: 968px) {
-      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 60px;
+      }
       .skin-container { order: -1; }
       .social-links { justify-content: center; }
+      .hero-content .description { margin: 0 auto 40px; }
       .about-grid { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      section { padding: 80px 0; }
+
       .nav-links { display: none; }
-      .hero-content h1 { font-size: 2rem; }
+      .mobile-menu-btn { display: flex; }
+
+      .hero-content h1 { font-size: 2.2rem; }
       .info-grid { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .minecraft-grid { grid-template-columns: 1fr; }
+
+      .section-header h2 { font-size: 1.8rem; }
+
+      .minigame-container { padding: 24px; }
+      .minigame-stats { gap: 16px; font-size: 0.85rem; }
+      .minigame-block { width: 40px; height: 40px; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 0 16px; }
+      nav .container { height: 64px; }
+      .hero { padding-top: 64px; }
+      .mobile-menu { top: 64px; }
+
+      .skill-card, .about-card, .contact-card, .minecraft-card { padding: 24px; }
+      .project-content { padding: 20px; }
+
+      .minigame-block { width: 36px; height: 36px; }
+      .minigame-grid { gap: 6px; padding: 12px; }
     }
 
     /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .animate { animation: fadeIn 0.6s ease forwards; opacity: 0; }
+    .animate {
+      opacity: 0;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
     .delay-1 { animation-delay: 0.1s; }
     .delay-2 { animation-delay: 0.2s; }
     .delay-3 { animation-delay: 0.3s; }
     .delay-4 { animation-delay: 0.4s; }
-  </style>
-</head>
-<body>
-  <!-- Navigation -->
-  <nav>
-    <div class="container">
-      <a href="#" class="logo">SalyVn</a>
-      <ul class="nav-links">
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+    .delay-5 { animation-delay: 0.5s; }
 
-  <!-- Hero -->
-  <section class="hero" id="home">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="hero-content">
-          <h1 class="animate">Trần Đ.Nhân</h1>
-          <p class="subtitle animate delay-1">Full Stack Developer & Minecraft Specialist</p>
-          <p class="animate delay-2">18-year-old freelancer and studio founder specializing in web development, Minecraft plugins, and creative digital solutions.</p>
+    /* Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
 
-          <div class="info-grid animate delay-3">
-            <div class="info-item">
-              <label>Nickname</label>
-              <span>Saly</span>
-            </div>
-            <div class="info-item">
-              <label>Birthday</label>
-              <span>01/05/2007</span>
-            </div>
-            <div class="info-item">
-              <label>Role</label>
-              <span>Founder @ StellaStudio</span>
-            </div>
-            <div class="info-item">
-              <label>Status</label>
-              <span>Freelancer</span>
-            </div>
-          </div>
+    /* Typing Effect */
+    .typing-text {
+      overflow: hidden;
+      border-right: 2px solid var(--accent);
+      white-space: nowrap;
+      animation: typing 3s steps(40) 1s forwards, blink 0.75s step-end infinite;
+      width: 0;
+    }
 
-          <div class="social-links animate delay-4">
-            <a href="https://www.facebook.com/saly.0105" target="_blank" title="Facebook">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://discord.gg/234W8Jr3bz" target="_blank" title="Discord">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-            </a>
-            <a href="https://github.com/SalyyS1" target="_blank" title="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
-            </a>
-            <a href="https://guns.lol/salyyyy" target="_blank" title="Website">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </a>
-          </div>
-        </div>
+    @keyframes typing {
+      to { width: 100%; }
+    }
 
-        <div class="skin-container animate delay-2">
-          <div class="skin-wrapper">
-            <canvas id="skin-canvas" width="280" height="380"></canvas>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
 
-  <!-- Skills -->
-  <section id="skills">
-    <div class="container">
-      <div class="section-header">
-        <h2>Skills</h2>
-        <p>Technologies and tools I work with</p>
-      </div>
+    /* Stats Counter */
+    .stats-section {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-top: 60px;
+      padding-top: 60px;
+      border-top: 1px solid var(--border);
+    }
 
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h3>Frontend</h3>
-          <div class="skill-item">
-            <div class="skill-header"><span>HTML</span><span>55%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 55%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>CSS</span><span>50%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 50%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>JavaScript</span><span>45%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 45%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>React</span><span>30%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div>
-          </div>
-        </div>
+    .stat-item {
+      text-align: center;
+    }
 
-        <div class="skill-card">
-          <h3>Backend</h3>
-          <div class="skill-item">
-            <div class="skill-header"><span>Java</span><span>60%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>Python</span><span>40%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 40%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>Node.js</span><span>35%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 35%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>SQL</span><span>30%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 30%"></div></div>
-          </div>
-        </div>
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      display: block;
+      margin-bottom: 8px;
+    }
 
-        <div class="skill-card">
-          <h3>Tools & Other</h3>
-          <div class="skill-item">
-            <div class="skill-header"><span>Git</span><span>50%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 50%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>VS Code</span><span>55%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 55%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>Minecraft APIs</span><span>60%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 60%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-header"><span>TypeScript</span><span>25%</span></div>
-            <div class="skill-bar"><div class="skill-fill" style="width: 25%"></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
 
-  <!-- Projects -->
-  <section id="projects">
-    <div class="container">
-      <div class="section-header">
-        <h2>Projects</h2>
-        <p>Featured work and side projects</p>
-      </div>
-
-      <div class="projects-grid" id="projectsGrid"></div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about">
-    <div class="container">
-      <div class="section-header">
-        <h2>About Me</h2>
-        <p>Background and achievements</p>
-      </div>
-
-      <div class="about-grid">
-        <div class="about-card">
-          <h3>Experience</h3>
-          <ul>
-            <li>4 years server experience in various roles</li>
-            <li>2 years managing and establishing a studio</li>
-            <li>Author of MMOItems VSCode extension</li>
-            <li>Project Leader of Noraxel network</li>
-          </ul>
-        </div>
-
-        <div class="about-card">
-          <h3>Skills Focus</h3>
-          <ul>
-            <li>Frontend development with modern frameworks</li>
-            <li>Minecraft plugin development (Spigot/Paper)</li>
-            <li>Community management and growth</li>
-            <li>Content creation and promotion</li>
-          </ul>
-        </div>
-
-        <div class="about-card">
-          <h3>Achievements</h3>
-          <ul>
-            <li>Founder of StellaStudio (10 staff members)</li>
-            <li>1000+ members, 200+ customers on Discord</li>
-            <li>Products used on large MC servers</li>
-            <li>VSCode Extension with 100+ downloads</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact">
-    <div class="container">
-      <div class="section-header">
-        <h2>Get In Touch</h2>
-        <p>Let's connect and build something together</p>
-      </div>
-
-      <div class="contact-grid">
-        <a href="https://discord.gg/234W8Jr3bz" target="_blank" class="contact-card">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
-          <h3>Discord</h3>
-          <p>Join my server</p>
-        </a>
-
-        <a href="https://github.com/SalyyS1" target="_blank" class="contact-card">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
-          <h3>GitHub</h3>
-          <p>View my code</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>© 2025 SalyVn. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <script>
-    // Project data
-    const projects = [
-      { name: 'Team Profile', type: 'Web', tools: ['HTML', 'CSS', 'JS'], description: 'Modern team profile page showcasing staff members and roles.', demo: 'https://salyys1.github.io/staff/index.html', github: 'https://github.com/SalyyS1/staff', icon: '👥' },
-      { name: 'MMOItems VSCode Extension', type: 'Tool', tools: ['VS Code', 'TypeScript'], description: 'VSCode extension for MMOItems configuration with syntax highlighting.', demo: 'https://youtu.be/KO4AdPrv45M', github: null, icon: '🔧' },
-      { name: 'Profile Page', type: 'Web', tools: ['HTML', 'CSS', 'JS'], description: 'Personal profile page similar to guns.lol style.', demo: 'https://salyys1.github.io/Yxchi/', github: 'https://github.com/SalyyS1/Yxchi', icon: '👤' },
-      { name: 'Minecraft Landing Pages', type: 'Web', tools: ['HTML', 'CSS', 'JS'], description: 'Beautiful landing pages for Minecraft servers.', demo: 'https://salyys1.github.io/landingpages/', github: 'https://github.com/SalyyS1/landingpages', icon: '🎮' },
-      { name: 'CultivationPath', type: 'Plugin', tools: ['Java', 'Minecraft'], description: 'Tu Tiên plugin with cultivation system mechanics.', demo: null, github: 'https://github.com/SalyyS1/CultivationPath', icon: '⚔️' },
-      { name: 'Upgrade Item Config', type: 'Config', tools: ['GooP', 'MythicMobs'], description: 'Advanced item upgrade system configuration.', demo: 'https://youtu.be/6cN4MspPBY4', github: null, icon: '⚙️' }
-    ];
-
-    // Render projects
-    const grid = document.getElementById('projectsGrid');
-    projects.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'project-card';
-      card.innerHTML = `
-        <div class="project-img">${p.icon}</div>
-        <div class="project-content">
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
-          <div class="project-tags">${p.tools.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-          <div class="project-links">
-            ${p.demo ? `<a href="${p.demo}" target="_blank" class="btn btn-primary">${p.demo.includes('youtu') ? 'Watch' : 'Demo'}</a>` : ''}
-            ${p.github ? `<a href="${p.github}" target="_blank" class="btn btn-outline">Source</a>` : ''}
-          </div>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    // Skin viewer
-    if (typeof skinview3d !== 'undefined') {
-      const viewer = new skinview3d.SkinViewer({
-        canvas: document.getElementById('skin-canvas'),
-        width: 280,
-        height: 380,
-        skin: 'https://crafatar.com/skins/9b6ebdbbd92041faa61721ddc6658708',
-        background: null
-      });
-      viewer.controls.enableRotate = true;
-      viewer.controls.enableZoom = true;
-      viewer.zoom = 0.85;
-      if (skinview3d.WalkingAnimation) {
-        viewer.animation = new skinview3d.WalkingAnimation();
-        viewer.animation.speed = 1;
+    @media (max-width: 768px) {
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    // Animate skill bars on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.skill-fill').forEach(bar => {
-            bar.style.width = bar.style.width;
-          });
+    @media (max-width: 480px) {
+      .stat-number { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip Link -->
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Navigation -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container">
+      <a href="#" class="logo" aria-label="SalyVn - Home">SalyVn</a>
+
+      <ul class="nav-links">
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#minecraft">Minecraft</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" role="menu">
+      <a href="#skills" role="menuitem">Skills</a>
+      <a href="#projects" role="menuitem">Projects</a>
+      <a href="#minecraft" role="menuitem">Minecraft</a>
+      <a href="#about" role="menuitem">About</a>
+      <a href="blog.html" role="menuitem">Blog</a>
+      <a href="#contact" role="menuitem">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main id="main">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <div class="hero-badge animate">Available for Projects</div>
+            <h1 class="animate delay-1">Trần Đ.Nhân</h1>
+            <p class="subtitle animate delay-2">Full Stack Developer & Minecraft Specialist</p>
+            <p class="description animate delay-3">Passionate developer crafting exceptional digital experiences. Specializing in web development, Minecraft plugins, and building communities that thrive.</p>
+
+            <div class="info-grid animate delay-4">
+              <div class="info-item">
+                <label>Nickname</label>
+                <span>Saly</span>
+              </div>
+              <div class="info-item">
+                <label>Birthday</label>
+                <span>01/05/2007</span>
+              </div>
+              <div class="info-item">
+                <label>Role</label>
+                <span>Founder @ StellaStudio</span>
+              </div>
+              <div class="info-item">
+                <label>Status</label>
+                <span>Open to Collaborate</span>
+              </div>
+            </div>
+
+            <div class="social-links animate delay-5">
+              <a href="https://www.facebook.com/saly.0105" target="_blank" rel="noopener noreferrer" aria-label="Facebook Profile">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="https://discord.gg/234W8Jr3bz" target="_blank" rel="noopener noreferrer" aria-label="Discord Server">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+              </a>
+              <a href="https://github.com/SalyyS1" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+              </a>
+              <a href="https://guns.lol/salyyyy" target="_blank" rel="noopener noreferrer" aria-label="Personal Website">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="skin-container animate delay-2">
+            <div class="skin-wrapper">
+              <div class="skin-loader" id="skin-loader">
+                <div class="spinner"></div>
+              </div>
+              <canvas id="skin-canvas" width="300" height="400" aria-label="3D Minecraft skin viewer"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="skills-title">Technical Skills</h2>
+          <p>Technologies and tools I use to bring ideas to life</p>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Frontend Development</h3>
+            <div class="skill-item">
+              <div class="skill-header"><span>HTML5</span><span>55%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 55%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>CSS3 / SCSS</span><span>50%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 50%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>JavaScript</span><span>45%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 45%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>React</span><span>30%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 30%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h3>Backend Development</h3>
+            <div class="skill-item">
+              <div class="skill-header"><span>Java</span><span>60%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 60%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>Python</span><span>40%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 40%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>Node.js</span><span>35%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 35%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>SQL / MySQL</span><span>30%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 30%"></div></div>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <h3>Tools & Specialties</h3>
+            <div class="skill-item">
+              <div class="skill-header"><span>Minecraft APIs</span><span>60%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 60%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>VS Code</span><span>55%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 55%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>Git / GitHub</span><span>50%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 50%"></div></div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-header"><span>TypeScript</span><span>25%</span></div>
+              <div class="skill-bar"><div class="skill-fill" style="--skill-width: 25%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="projects-title">Featured Projects</h2>
+          <p>A selection of my recent work and side projects</p>
+        </div>
+
+        <div class="projects-grid" id="projectsGrid" role="list"></div>
+      </div>
+    </section>
+
+    <!-- Minecraft Section -->
+    <section id="minecraft" aria-labelledby="minecraft-title" class="minecraft-section">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="minecraft-title">Minecraft World</h2>
+          <p>My passion for Minecraft development and server communities</p>
+        </div>
+
+        <div class="minecraft-grid">
+          <div class="minecraft-card">
+            <div class="minecraft-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v16H4V4m2 2v12h12V6H6m2 2h2v2H8V8m4 0h2v2h-2V8m-4 4h2v2H8v-2m4 0h2v2h-2v-2"/></svg>
+            </div>
+            <h3>Server Administration</h3>
+            <p>4+ years managing Minecraft servers with custom configurations, plugin setups, and community management.</p>
+            <ul class="minecraft-stats">
+              <li><strong>10+</strong> Servers Managed</li>
+              <li><strong>1000+</strong> Players Served</li>
+            </ul>
+          </div>
+
+          <div class="minecraft-card">
+            <div class="minecraft-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Plugin Development</h3>
+            <p>Custom Spigot/Paper plugins for RPG systems, economy, events, and unique gameplay mechanics.</p>
+            <ul class="minecraft-stats">
+              <li><strong>5+</strong> Custom Plugins</li>
+              <li><strong>Java</strong> & Kotlin</li>
+            </ul>
+          </div>
+
+          <div class="minecraft-card">
+            <div class="minecraft-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            </div>
+            <h3>Config Specialist</h3>
+            <p>Expert in MythicMobs, MMOItems, and custom item configurations for immersive RPG experiences.</p>
+            <ul class="minecraft-stats">
+              <li><strong>50+</strong> Config Files</li>
+              <li><strong>200+</strong> Custom Items</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Minecraft Minigame -->
+        <div class="minigame-container" id="minigame-container">
+          <h3 class="minigame-title">Block Breaker</h3>
+          <p class="minigame-desc">Break blocks to score! Power-ups give bonuses. Build combos for multipliers!</p>
+
+          <div class="minigame-wrapper">
+            <!-- Difficulty Selector -->
+            <div class="difficulty-selector">
+              <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+              <button class="difficulty-btn active" data-difficulty="medium">Medium</button>
+              <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+            </div>
+
+            <!-- Stats Display -->
+            <div class="minigame-stats">
+              <div class="stat-item">
+                <span class="stat-label">Score</span>
+                <span class="stat-value" id="game-score">0</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Combo</span>
+                <span class="stat-value combo-display" id="game-combo">-</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Time</span>
+                <span class="stat-value" id="game-time">30s</span>
+              </div>
+              <div class="stat-item">
+                <span class="stat-label">Best</span>
+                <span class="stat-value" id="game-best">0</span>
+              </div>
+            </div>
+
+            <!-- Power-up Indicator -->
+            <div class="powerup-indicator" id="powerup-indicator"></div>
+
+            <!-- Game Grid -->
+            <div class="minigame-grid" id="minigame-grid"></div>
+
+            <!-- Start Button -->
+            <button class="btn btn-primary minigame-btn" id="start-game">Start Game</button>
+
+            <!-- Leaderboard Toggle -->
+            <button class="btn btn-ghost leaderboard-toggle" id="leaderboard-toggle">
+              <span>🏆</span> Leaderboard
+            </button>
+
+            <!-- Leaderboard Panel -->
+            <div class="leaderboard-panel hidden" id="leaderboard-panel">
+              <h4>🏆 Top Players</h4>
+              <div class="leaderboard-list" id="leaderboard-list">
+                <p class="loading-text">Loading...</p>
+              </div>
+              <p class="leaderboard-note">Want to be featured? DM your score on Discord!</p>
+            </div>
+          </div>
+
+          <!-- Username Modal -->
+          <div class="username-modal hidden" id="username-modal">
+            <div class="modal-content">
+              <h4>Enter Your Name</h4>
+              <input type="text" id="username-input" placeholder="Your name" maxlength="20">
+              <div class="modal-buttons">
+                <button class="btn btn-ghost" id="skip-username">Skip</button>
+                <button class="btn btn-primary" id="save-username">Save & Play</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="about-title">About Me</h2>
+          <p>My journey, expertise, and accomplishments</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              Experience
+            </h3>
+            <ul>
+              <li>4+ years of server administration across various roles</li>
+              <li>2 years managing and growing StellaStudio</li>
+              <li>Creator of the MMOItems VSCode extension</li>
+              <li>Project Lead at Noraxel Network</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Core Focus
+            </h3>
+            <ul>
+              <li>Building responsive web interfaces with modern frameworks</li>
+              <li>Developing custom Minecraft plugins (Spigot/Paper)</li>
+              <li>Growing and managing gaming communities</li>
+              <li>Creating content and promotional materials</li>
+            </ul>
+          </div>
+
+          <div class="about-card">
+            <h3>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+              Achievements
+            </h3>
+            <ul>
+              <li>Founded StellaStudio with 10+ active team members</li>
+              <li>Built a community of 1,000+ members, 200+ customers</li>
+              <li>Products deployed on major Minecraft servers</li>
+              <li>VSCode extension with 100+ marketplace downloads</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+          <div class="stat-item">
+            <span class="stat-number" data-target="4">0</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="10">0</span>
+            <span class="stat-label">Servers Managed</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="1000">0</span>
+            <span class="stat-label">Players Served</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-target="6">0</span>
+            <span class="stat-label">Projects Completed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-header">
+          <h2 id="contact-title">Let's Connect</h2>
+          <p>Have a project in mind? Let's build something amazing together</p>
+        </div>
+
+        <div class="contact-grid">
+          <a href="https://discord.gg/234W8Jr3bz" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="Join Discord Server">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+            <h3>Discord</h3>
+            <p>Join our community server</p>
+          </a>
+
+          <a href="https://github.com/SalyyS1" target="_blank" rel="noopener noreferrer" class="contact-card" aria-label="View GitHub Profile">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+            <h3>GitHub</h3>
+            <p>Explore my repositories</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <div class="container">
+      <p>&copy; 2025 <a href="#">SalyVn</a>. Crafted with passion.</p>
+    </div>
+  </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <script>
+    // Project data - XSS safe rendering
+    const projects = [
+      {
+        name: 'Team Profile',
+        type: 'Web Application',
+        tools: ['HTML', 'CSS', 'JavaScript'],
+        description: 'Modern team profile page showcasing staff members with dynamic card layouts and smooth animations.',
+        demo: 'https://salyys1.github.io/staff/index.html',
+        github: 'https://github.com/SalyyS1/staff',
+        image: 'assets/team-profile.jpg'
+      },
+      {
+        name: 'MMOItems VSCode Extension',
+        type: 'Developer Tool',
+        tools: ['TypeScript', 'VS Code API'],
+        description: 'Feature-rich VSCode extension providing syntax highlighting and IntelliSense for MMOItems configuration files.',
+        demo: 'https://youtu.be/KO4AdPrv45M',
+        github: null,
+        image: 'assets/vscode-extension.jpg'
+      },
+      {
+        name: 'Profile Page',
+        type: 'Web Application',
+        tools: ['HTML', 'CSS', 'JavaScript'],
+        description: 'Stylish personal profile page inspired by guns.lol with animated backgrounds and social integrations.',
+        demo: 'https://salyys1.github.io/Yxchi/',
+        github: 'https://github.com/SalyyS1/Yxchi',
+        image: 'assets/profile.jpg'
+      },
+      {
+        name: 'MC Landing Pages',
+        type: 'Web Design',
+        tools: ['HTML', 'CSS', 'JavaScript'],
+        description: 'Collection of stunning landing page templates designed specifically for Minecraft server communities.',
+        demo: 'https://salyys1.github.io/landingpages/',
+        github: 'https://github.com/SalyyS1/landingpages',
+        image: 'assets/landing-page.jpg'
+      },
+      {
+        name: 'CultivationPath',
+        type: 'Minecraft Plugin',
+        tools: ['Java', 'Spigot API'],
+        description: 'Immersive cultivation system plugin featuring progression mechanics, abilities, and RPG elements.',
+        demo: null,
+        github: 'https://github.com/SalyyS1/CultivationPath',
+        image: 'assets/cultivation.jpg'
+      },
+      {
+        name: 'Upgrade Item Config',
+        type: 'Configuration',
+        tools: ['GooP', 'MythicMobs'],
+        description: 'Comprehensive item upgrade system configuration with custom enchantments and progression paths.',
+        demo: 'https://youtu.be/6cN4MspPBY4',
+        github: null,
+        image: 'assets/upgrade-config.jpg'
+      }
+    ];
+
+    // Safe text content helper
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Render projects safely (no innerHTML with user data)
+    function renderProjects() {
+      const grid = document.getElementById('projectsGrid');
+      if (!grid) return;
+
+      projects.forEach((p, index) => {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        card.setAttribute('role', 'listitem');
+        card.style.animationDelay = `${index * 0.1}s`;
+
+        // Project image - use actual image if available
+        const imgDiv = document.createElement('div');
+        imgDiv.className = 'project-img';
+
+        if (p.image) {
+          const img = document.createElement('img');
+          img.src = p.image;
+          img.alt = p.name;
+          img.loading = 'lazy';
+          img.style.cssText = 'width: 100%; height: 100%; object-fit: cover;';
+          imgDiv.appendChild(img);
+        } else {
+          imgDiv.textContent = p.icon || '📁';
         }
+        card.appendChild(imgDiv);
+
+        // Content wrapper
+        const content = document.createElement('div');
+        content.className = 'project-content';
+
+        // Type badge
+        const type = document.createElement('span');
+        type.className = 'project-type';
+        type.textContent = p.type;
+        content.appendChild(type);
+
+        // Title
+        const title = document.createElement('h3');
+        title.textContent = p.name;
+        content.appendChild(title);
+
+        // Description
+        const desc = document.createElement('p');
+        desc.textContent = p.description;
+        content.appendChild(desc);
+
+        // Tags
+        const tagsDiv = document.createElement('div');
+        tagsDiv.className = 'project-tags';
+        p.tools.forEach(tool => {
+          const tag = document.createElement('span');
+          tag.className = 'tag';
+          tag.textContent = tool;
+          tagsDiv.appendChild(tag);
+        });
+        content.appendChild(tagsDiv);
+
+        // Links
+        const linksDiv = document.createElement('div');
+        linksDiv.className = 'project-links';
+
+        if (p.demo) {
+          const demoLink = document.createElement('a');
+          demoLink.href = p.demo;
+          demoLink.target = '_blank';
+          demoLink.rel = 'noopener noreferrer';
+          demoLink.className = 'btn btn-primary';
+          demoLink.textContent = p.demo.includes('youtu') ? 'Watch Demo' : 'Live Demo';
+          linksDiv.appendChild(demoLink);
+        }
+
+        if (p.github) {
+          const githubLink = document.createElement('a');
+          githubLink.href = p.github;
+          githubLink.target = '_blank';
+          githubLink.rel = 'noopener noreferrer';
+          githubLink.className = 'btn btn-outline';
+          githubLink.textContent = 'View Source';
+          linksDiv.appendChild(githubLink);
+        }
+
+        content.appendChild(linksDiv);
+        card.appendChild(content);
+        grid.appendChild(card);
       });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('.skill-card').forEach(card => observer.observe(card));
+    }
+
+    // Skin viewer with robust initialization
+    function initSkinViewer() {
+      const canvas = document.getElementById('skin-canvas');
+      const loader = document.getElementById('skin-loader');
+
+      if (!canvas) return;
+
+      // Check if skinview3d is available
+      if (typeof skinview3d === 'undefined') {
+        console.error('skinview3d library not loaded');
+        if (loader) {
+          loader.innerHTML = '<p style="color: var(--text-muted); padding: 20px;">Loading skin viewer...</p>';
+        }
+        // Retry after a delay
+        setTimeout(initSkinViewer, 500);
+        return;
+      }
+
+      try {
+        const viewer = new skinview3d.SkinViewer({
+          canvas: canvas,
+          width: 300,
+          height: 400,
+          skin: 'https://mc-heads.net/skin/9b6ebdbbd92041faa61721ddc6658708'
+        });
+
+        // Configure viewer
+        viewer.fov = 70;
+        viewer.zoom = 0.9;
+        viewer.autoRotate = true;
+        viewer.autoRotateSpeed = 0.5;
+
+        // Enable controls
+        if (viewer.controls) {
+          viewer.controls.enableRotate = true;
+          viewer.controls.enableZoom = true;
+          viewer.controls.enablePan = false;
+        }
+
+        // Add walking animation
+        if (skinview3d.WalkingAnimation) {
+          viewer.animation = new skinview3d.WalkingAnimation();
+          viewer.animation.speed = 0.8;
+        } else if (skinview3d.IdleAnimation) {
+          viewer.animation = new skinview3d.IdleAnimation();
+          viewer.animation.speed = 0.5;
+        }
+
+        // Hide loader after skin loads
+        setTimeout(() => {
+          if (loader) loader.classList.add('hidden');
+        }, 800);
+
+        console.log('Skin viewer initialized successfully');
+
+      } catch (error) {
+        console.error('Skin viewer error:', error);
+        if (loader) {
+          loader.innerHTML = '<p style="color: var(--text-muted); padding: 20px; text-align: center;">Could not load skin viewer<br><small>Try refreshing the page</small></p>';
+        }
+      }
+    }
+
+    // Mobile menu
+    function initMobileMenu() {
+      const btn = document.querySelector('.mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('active');
+        btn.classList.toggle('active');
+        btn.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Close on link click
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          menu.classList.remove('active');
+          btn.classList.remove('active');
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Navbar scroll effect
+    function initNavScroll() {
+      const nav = document.getElementById('navbar');
+      if (!nav) return;
+
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+    }
+
+    // Scroll to top button
+    function initScrollTop() {
+      const btn = document.getElementById('scrollTop');
+      if (!btn) return;
+
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 500);
+      }, { passive: true });
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Skill bar animations
+    function initSkillBars() {
+      const skillBars = document.querySelectorAll('.skill-fill');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      skillBars.forEach(bar => observer.observe(bar));
+    }
+
+    // Block Breaker Game Configuration
+    const GAME_CONFIG = {
+      difficulties: {
+        easy: { time: 45, gridSize: 20, powerUpChance: 0.15, label: 'Easy' },
+        medium: { time: 30, gridSize: 25, powerUpChance: 0.12, label: 'Medium' },
+        hard: { time: 20, gridSize: 30, powerUpChance: 0.1, label: 'Hard' }
+      },
+      blockTypes: {
+        dirt: { points: 1 },
+        stone: { points: 2 },
+        grass: { points: 2 },
+        diamond: { points: 5 },
+        gold: { points: 3 }
+      },
+      powerUps: {
+        bomb: { icon: '💣', color: '#ff4444' },
+        time: { icon: '⏰', color: '#44ff44' },
+        double: { icon: '2×', color: '#ffaa00' }
+      },
+      comboThreshold: 500,
+      comboMultipliers: [1, 1.5, 2, 2.5, 3, 4, 5]
+    };
+
+    // Game State
+    const gameState = {
+      score: 0,
+      time: 30,
+      best: parseInt(localStorage.getItem('blockBreakerBest') || '0'),
+      combo: 0,
+      lastClickTime: 0,
+      doublePointsUntil: 0,
+      isRunning: false,
+      timer: null,
+      difficulty: 'medium',
+      username: localStorage.getItem('blockBreakerUsername') || '',
+      leaderboard: []
+    };
+
+    // Initialize Block Breaker
+    function initBlockBreaker() {
+      const container = document.getElementById('minigame-container');
+      if (!container) return;
+
+      // Set initial best score
+      document.getElementById('game-best').textContent = gameState.best;
+      if (gameState.username) {
+        document.getElementById('username-input').value = gameState.username;
+      }
+
+      // Attach event listeners
+      document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.addEventListener('click', () => selectDifficulty(btn.dataset.difficulty));
+      });
+
+      document.getElementById('start-game')?.addEventListener('click', handleStartClick);
+      document.getElementById('leaderboard-toggle')?.addEventListener('click', toggleLeaderboard);
+      document.getElementById('save-username')?.addEventListener('click', saveUsername);
+      document.getElementById('skip-username')?.addEventListener('click', () => {
+        document.getElementById('username-modal')?.classList.add('hidden');
+        startGame();
+      });
+      document.getElementById('username-input')?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') saveUsername();
+      });
+
+      loadLeaderboard();
+      createBlocks();
+    }
+
+    function selectDifficulty(difficulty) {
+      if (gameState.isRunning) return;
+      gameState.difficulty = difficulty;
+      document.querySelectorAll('.difficulty-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.difficulty === difficulty);
+      });
+      const config = GAME_CONFIG.difficulties[difficulty];
+      document.getElementById('game-time').textContent = `${config.time}s`;
+      createBlocks();
+    }
+
+    function handleStartClick() {
+      if (gameState.isRunning) return;
+      if (!gameState.username) {
+        document.getElementById('username-modal')?.classList.remove('hidden');
+      } else {
+        startGame();
+      }
+    }
+
+    function saveUsername() {
+      const input = document.getElementById('username-input');
+      const name = input?.value.trim() || 'Player';
+      gameState.username = name;
+      localStorage.setItem('blockBreakerUsername', name);
+      document.getElementById('username-modal')?.classList.add('hidden');
+      startGame();
+    }
+
+    function createBlocks() {
+      const grid = document.getElementById('minigame-grid');
+      if (!grid) return;
+
+      grid.innerHTML = '';
+      const config = GAME_CONFIG.difficulties[gameState.difficulty];
+      const blockKeys = Object.keys(GAME_CONFIG.blockTypes);
+
+      for (let i = 0; i < config.gridSize; i++) {
+        const block = document.createElement('div');
+        const isPowerUp = gameState.isRunning && Math.random() < config.powerUpChance;
+
+        if (isPowerUp) {
+          const powerUpKeys = Object.keys(GAME_CONFIG.powerUps);
+          const powerUpType = powerUpKeys[Math.floor(Math.random() * powerUpKeys.length)];
+          const powerUp = GAME_CONFIG.powerUps[powerUpType];
+          block.className = 'minigame-block powerup';
+          block.dataset.powerup = powerUpType;
+          block.innerHTML = `<span class="powerup-icon">${powerUp.icon}</span>`;
+          block.style.background = powerUp.color;
+          block.style.boxShadow = `0 0 15px ${powerUp.color}`;
+        } else {
+          const type = blockKeys[Math.floor(Math.random() * blockKeys.length)];
+          block.className = `minigame-block ${type}`;
+          block.dataset.type = type;
+        }
+
+        block.addEventListener('click', () => breakBlock(block));
+        grid.appendChild(block);
+      }
+    }
+
+    function breakBlock(block) {
+      if (!gameState.isRunning || block.classList.contains('broken')) return;
+
+      const now = Date.now();
+
+      // Combo check
+      if (now - gameState.lastClickTime < GAME_CONFIG.comboThreshold) {
+        gameState.combo = Math.min(gameState.combo + 1, GAME_CONFIG.comboMultipliers.length - 1);
+      } else {
+        gameState.combo = 0;
+      }
+      gameState.lastClickTime = now;
+
+      // Handle power-up
+      if (block.dataset.powerup) {
+        activatePowerUp(block.dataset.powerup, block);
+      } else {
+        const type = block.dataset.type;
+        const basePoints = GAME_CONFIG.blockTypes[type]?.points || 1;
+        const comboMultiplier = GAME_CONFIG.comboMultipliers[gameState.combo];
+        const doubleActive = Date.now() < gameState.doublePointsUntil;
+        const points = Math.floor(basePoints * comboMultiplier * (doubleActive ? 2 : 1));
+        gameState.score += points;
+        showScorePopup(block, points, gameState.combo > 0);
+      }
+
+      block.classList.add('broken');
+      updateDisplay();
+
+      const remaining = document.querySelectorAll('.minigame-block:not(.broken)');
+      if (remaining.length === 0) {
+        createBlocks();
+      }
+    }
+
+    function activatePowerUp(type, block) {
+      const indicator = document.getElementById('powerup-indicator');
+      const grid = document.getElementById('minigame-grid');
+
+      switch (type) {
+        case 'bomb':
+          const blocks = Array.from(document.querySelectorAll('.minigame-block:not(.broken)'));
+          blocks.slice(0, Math.min(5, blocks.length)).forEach(b => {
+            if (b !== block) {
+              const basePoints = GAME_CONFIG.blockTypes[b.dataset.type]?.points || 1;
+              gameState.score += basePoints;
+              b.classList.add('broken');
+            }
+          });
+          showPowerUpMessage('💣 BOOM!', '#ff4444');
+          break;
+        case 'time':
+          gameState.time += 5;
+          document.getElementById('game-time').textContent = `${gameState.time}s`;
+          showPowerUpMessage('⏰ +5 SECONDS!', '#44ff44');
+          break;
+        case 'double':
+          gameState.doublePointsUntil = Date.now() + 10000;
+          showPowerUpMessage('2× DOUBLE POINTS!', '#ffaa00');
+          if (indicator) {
+            indicator.innerHTML = '<span class="double-active">2× ACTIVE</span>';
+            setTimeout(() => { if (indicator) indicator.innerHTML = ''; }, 10000);
+          }
+          break;
+      }
+    }
+
+    function showPowerUpMessage(text, color) {
+      const grid = document.getElementById('minigame-grid');
+      if (!grid) return;
+      const popup = document.createElement('div');
+      popup.className = 'powerup-popup';
+      popup.textContent = text;
+      popup.style.color = color;
+      grid.appendChild(popup);
+      setTimeout(() => popup.remove(), 1000);
+    }
+
+    function showScorePopup(block, points, isCombo) {
+      const grid = document.getElementById('minigame-grid');
+      if (!grid) return;
+      const popup = document.createElement('div');
+      popup.className = `score-popup ${isCombo ? 'combo' : ''}`;
+      popup.textContent = `+${points}`;
+      const rect = block.getBoundingClientRect();
+      const gridRect = grid.getBoundingClientRect();
+      popup.style.left = `${rect.left - gridRect.left + rect.width / 2}px`;
+      popup.style.top = `${rect.top - gridRect.top}px`;
+      grid.appendChild(popup);
+      setTimeout(() => popup.remove(), 600);
+    }
+
+    function updateDisplay() {
+      document.getElementById('game-score').textContent = gameState.score;
+      const comboDisplay = document.getElementById('game-combo');
+      if (comboDisplay) {
+        if (gameState.combo > 0) {
+          comboDisplay.textContent = `×${GAME_CONFIG.comboMultipliers[gameState.combo]}`;
+          comboDisplay.classList.add('active');
+        } else {
+          comboDisplay.textContent = '-';
+          comboDisplay.classList.remove('active');
+        }
+      }
+    }
+
+    function startGame() {
+      if (gameState.isRunning) return;
+
+      const config = GAME_CONFIG.difficulties[gameState.difficulty];
+      gameState.score = 0;
+      gameState.time = config.time;
+      gameState.combo = 0;
+      gameState.lastClickTime = 0;
+      gameState.doublePointsUntil = 0;
+      gameState.isRunning = true;
+
+      document.getElementById('game-score').textContent = '0';
+      document.getElementById('game-time').textContent = `${config.time}s`;
+      document.getElementById('game-combo').textContent = '-';
+      document.getElementById('powerup-indicator').innerHTML = '';
+
+      const startBtn = document.getElementById('start-game');
+      if (startBtn) {
+        startBtn.textContent = 'Playing...';
+        startBtn.disabled = true;
+      }
+
+      createBlocks();
+
+      gameState.timer = setInterval(() => {
+        gameState.time--;
+        document.getElementById('game-time').textContent = `${gameState.time}s`;
+        if (gameState.time <= 0) endGame();
+      }, 1000);
+    }
+
+    function endGame() {
+      clearInterval(gameState.timer);
+      gameState.isRunning = false;
+
+      const isNewBest = gameState.score > gameState.best;
+      if (isNewBest) {
+        gameState.best = gameState.score;
+        localStorage.setItem('blockBreakerBest', gameState.best.toString());
+        document.getElementById('game-best').textContent = gameState.best;
+      }
+
+      const startBtn = document.getElementById('start-game');
+      if (startBtn) {
+        startBtn.textContent = 'Play Again';
+        startBtn.disabled = false;
+      }
+
+      showGameOverMessage(isNewBest);
+      document.querySelectorAll('.minigame-block').forEach(block => {
+        block.style.pointerEvents = 'none';
+      });
+    }
+
+    function showGameOverMessage(isNewBest) {
+      const grid = document.getElementById('minigame-grid');
+      if (!grid) return;
+      const overlay = document.createElement('div');
+      overlay.className = 'game-over-overlay';
+      overlay.innerHTML = `
+        <div class="game-over-content">
+          <h4>${isNewBest ? '🎉 New Best!' : 'Game Over!'}</h4>
+          <p class="final-score">${gameState.score} points</p>
+          <p class="player-name">${gameState.username || 'Player'}</p>
+          ${isNewBest ? '<p class="share-hint">Share your score on Discord to be featured!</p>' : ''}
+        </div>
+      `;
+      grid.appendChild(overlay);
+      setTimeout(() => overlay.remove(), 3000);
+    }
+
+    function toggleLeaderboard() {
+      document.getElementById('leaderboard-panel')?.classList.toggle('hidden');
+    }
+
+    async function loadLeaderboard() {
+      try {
+        const response = await fetch('./data/leaderboard.json');
+        if (response.ok) {
+          gameState.leaderboard = await response.json();
+          renderLeaderboard();
+        }
+      } catch (e) {
+        gameState.leaderboard = [
+          { name: 'SalyVn', score: 185, difficulty: 'hard' },
+          { name: 'BlockMaster', score: 150, difficulty: 'hard' },
+          { name: 'ProGamer', score: 142, difficulty: 'medium' }
+        ];
+        renderLeaderboard();
+      }
+    }
+
+    function renderLeaderboard() {
+      const list = document.getElementById('leaderboard-list');
+      if (!list) return;
+
+      if (gameState.leaderboard.length === 0) {
+        list.innerHTML = '<p class="no-scores">No scores yet. Be the first!</p>';
+        return;
+      }
+
+      list.innerHTML = gameState.leaderboard
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 10)
+        .map((entry, i) => `
+          <div class="leaderboard-entry ${i < 3 ? 'top-' + (i + 1) : ''}">
+            <span class="rank">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</span>
+            <span class="name">${entry.name}</span>
+            <span class="score">${entry.score}</span>
+            <span class="diff">${entry.difficulty}</span>
+          </div>
+        `).join('');
+    }
+
+    // Stats counter animation
+    function initStatsCounter() {
+      const statNumbers = document.querySelectorAll('.stat-number');
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const target = parseInt(entry.target.dataset.target);
+            animateCounter(entry.target, target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      statNumbers.forEach(stat => observer.observe(stat));
+    }
+
+    function animateCounter(element, target) {
+      const duration = 2000;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+        const current = Math.floor(eased * target);
+
+        element.textContent = current >= 1000 ? `${(current / 1000).toFixed(1)}k+` : `${current}+`;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    // Initialize everything
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProjects();
+      initSkinViewer();
+      initMobileMenu();
+      initNavScroll();
+      initScrollTop();
+      initSkillBars();
+      initStatsCounter();
+      initBlockBreaker();
+    });
   </script>
 </body>
 </html>

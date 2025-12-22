@@ -10,7 +10,9 @@ const SKIN_CONFIG = {
   name: 'SalyVn',
   width: 300,
   height: 400,
-  zoom: 0.8
+  zoom: 0.8,
+  // mc-heads.net supports CORS headers for canvas usage
+  skinUrl: 'https://mc-heads.net/skin/9b6ebdbbd92041faa61721ddc6658708'
 }
 
 /**
@@ -40,14 +42,12 @@ export function initSkinViewer() {
     return
   }
 
-  const skinUrl = `https://crafatar.com/skins/${SKIN_CONFIG.uuid}`
-
   try {
     const viewer = new skinview3d.SkinViewer({
       canvas,
       width: SKIN_CONFIG.width,
       height: SKIN_CONFIG.height,
-      skin: skinUrl,
+      skin: SKIN_CONFIG.skinUrl,
       background: null
     })
 

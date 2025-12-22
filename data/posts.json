@@ -1,0 +1,31 @@
+[
+  {
+    "id": "welcome-to-my-blog",
+    "title": "Welcome to My Blog",
+    "date": "2025-12-22",
+    "excerpt": "First post on my new portfolio blog! I'll share my journey in web development, Minecraft plugin development, and more.",
+    "content": "<p>Welcome to my blog! This is where I'll share updates about my projects, tutorials, and insights from my development journey.</p><p>Stay tuned for more content about web development, Minecraft plugins, and creative coding!</p>",
+    "tags": ["announcement", "blog"],
+    "media": []
+  },
+  {
+    "id": "minecraft-plugin-development-tips",
+    "title": "5 Tips for Minecraft Plugin Development",
+    "date": "2025-12-20",
+    "excerpt": "Learn essential tips for building better Minecraft plugins with Spigot/Paper API.",
+    "content": "<p>After years of developing Minecraft plugins, here are my top 5 tips:</p><ol><li><strong>Use async tasks</strong> - Never block the main thread</li><li><strong>Cache frequently accessed data</strong> - Reduce database calls</li><li><strong>Follow naming conventions</strong> - Keep code readable</li><li><strong>Test on multiple versions</strong> - Ensure compatibility</li><li><strong>Use events wisely</strong> - Don't over-register listeners</li></ol>",
+    "tags": ["minecraft", "java", "tutorial"],
+    "media": []
+  },
+  {
+    "id": "building-my-portfolio",
+    "title": "Building My Portfolio Website",
+    "date": "2025-12-18",
+    "excerpt": "A behind-the-scenes look at how I built this portfolio with modern web technologies.",
+    "content": "<p>This portfolio was built with vanilla HTML, CSS, and JavaScript. Here's what I focused on:</p><ul><li>Clean, minimal design with cyberpunk accents</li><li>Smooth animations and transitions</li><li>Mobile-first responsive layout</li><li>Accessibility features</li></ul><p>The interactive Block Breaker minigame was a fun addition to showcase my JavaScript skills!</p>",
+    "tags": ["web", "portfolio", "design"],
+    "media": [
+      { "type": "youtube", "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "title": "Demo Video" }
+    ]
+  }
+]
