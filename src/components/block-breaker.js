@@ -547,9 +547,4 @@ function renderLeaderboard() {
     `).join('')
 }
 
-// Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initBlockBreaker)
-} else {
-  initBlockBreaker()
-}
+// Auto-init removed. Controlled by main.js

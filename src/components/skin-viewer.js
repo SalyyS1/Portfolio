@@ -48,7 +48,7 @@ export function initSkinViewer() {
       width: SKIN_CONFIG.width,
       height: SKIN_CONFIG.height,
       skin: SKIN_CONFIG.skinUrl,
-      background: null
+      panorama: 'https://raw.githubusercontent.com/nickyvanurk/3d-minecraft-model-viewer/main/textures/panorama.png'
     })
 
     // Configure controls
@@ -57,11 +57,68 @@ export function initSkinViewer() {
     viewer.controls.enablePan = false
     viewer.zoom = SKIN_CONFIG.zoom
 
-    // Add walking animation if available
-    if (skinview3d.WalkingAnimation) {
-      viewer.animation = new skinview3d.WalkingAnimation()
-      viewer.animation.speed = 1
+    // Realistic idle animation with natural gestures
+    let time = 0
+    let wavePhase = 0
+
+    const animate = () => {
+      time += 0.016 // ~60fps timing
+      wavePhase += 0.02
+
+      if (viewer.playerObject && viewer.playerObject.skin) {
+        const skin = viewer.playerObject.skin
+
+        // Natural breathing effect on body (slow rhythm)
+        const breathe = Math.sin(time * 1.2) * 0.015
+
+        // Left arm waves with natural pauses
+        if (skin.leftArm) {
+          // Wave pattern with occasional pause
+          const waveSpeed = 1.2
+          const waveAmount = 0.3 + Math.sin(time * 0.3) * 0.1 // Varying intensity
+          skin.leftArm.rotation.x = -2.4 + breathe * 2
+          skin.leftArm.rotation.z = Math.sin(wavePhase * waveSpeed) * waveAmount
+        }
+
+        // Right arm relaxed sword-holding position with micro-movements
+        if (skin.rightArm) {
+          skin.rightArm.rotation.x = -0.35 + Math.sin(time * 0.5) * 0.02
+          skin.rightArm.rotation.z = 0.12 + Math.sin(time * 0.7) * 0.02
+        }
+
+        // Body breathing + subtle weight shift
+        if (skin.body) {
+          skin.body.rotation.y = Math.sin(time * 0.4) * 0.025
+          skin.body.rotation.z = Math.sin(time * 0.3) * 0.008
+          skin.body.rotation.x = breathe // Breathing forward/back
+        }
+
+        // Head - natural look around + nodding + reaction to wave
+        if (skin.head) {
+          // Occasional glance direction changes
+          const lookY = Math.sin(time * 0.35) * 0.12 + Math.sin(time * 0.9) * 0.05
+          const lookX = Math.sin(time * 0.25) * 0.06 + breathe
+          skin.head.rotation.y = lookY
+          skin.head.rotation.x = lookX
+          // Subtle head tilt
+          skin.head.rotation.z = Math.sin(time * 0.2) * 0.03
+        }
+
+        // Legs - relaxed stance with weight shifting
+        if (skin.leftLeg) {
+          skin.leftLeg.rotation.z = 0.08 // Spread outward
+          skin.leftLeg.rotation.x = Math.sin(time * 0.4) * 0.02
+          skin.leftLeg.rotation.y = Math.sin(time * 0.25) * 0.01
+        }
+        if (skin.rightLeg) {
+          skin.rightLeg.rotation.z = -0.08 // Spread outward  
+          skin.rightLeg.rotation.x = Math.sin(time * 0.4 + Math.PI) * 0.02
+          skin.rightLeg.rotation.y = Math.sin(time * 0.25 + Math.PI) * 0.01
+        }
+      }
+      requestAnimationFrame(animate)
     }
+    animate()
 
     // Remove loader after skin loads
     setTimeout(() => removeLoader(loader), 800)
